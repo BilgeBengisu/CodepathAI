@@ -51,3 +51,4 @@ The game's purpose is to offer a number guessing game for the user with differen
 ## 🚀 Stretch Features
 
 - [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+# CodepathAI
