@@ -1,6 +1,9 @@
 # PawPal+ Project Reflection
 
 ## 1. System Design
+the user should be able to add a pet with name and pet tasks.
+the user should be able to able to enter constraints such as available time, priority, owner preferences.
+the user should be able to display the tasks of the day.
 
 **a. Initial design**
 
