@@ -9,12 +9,16 @@ the user should be able to display the tasks of the day.
 
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
+I used four classes: Owner, Pet, CareTask, and Scheduler
+Owner owns Pet; Scheduler has Owner and manages CareTask.
+the Pet has get_info responsibility. CareTask has task information. Scheduler has the responsiblity to add tasks, generate a plan to carry out the tasks as well as to explain the plan.
 
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
-
+Yes, the CareTask had no link to pet. Scheduler never uses Pet directly.
+The pet is buried inside Owner (owner.pet). When generate_plan() needs to check pet-specific constraints (e.g. a cat doesn't need walks, a senior dog needs shorter sessions), it has to do self.owner.pet.species — that's a Law of Demeter violation. Switched to direct reference.
 ---
 
 ## 2. Scheduling Logic and Tradeoffs
