@@ -17,6 +17,7 @@ the Pet has get_info responsibility. CareTask has task information. Scheduler ha
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
 Yes, the CareTask had no link to pet. Scheduler never uses Pet directly.
 The pet is buried inside Owner (owner.pet). When generate_plan() needs to check pet-specific constraints (e.g. a cat doesn't need walks, a senior dog needs shorter sessions), it has to do self.owner.pet.species — that's a Law of Demeter violation. Switched to direct reference.
 ---
@@ -32,6 +33,13 @@ The pet is buried inside Owner (owner.pet). When generate_plan() needs to check 
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+
+`detect_conflicts()` flags a conflict only when two tasks share the **exact same start time** (`task.time`). It does not check whether one task's duration causes it to *run into* another task's start time. For example, a 30-minute walk at 07:00 and a feeding at 07:20 are treated as conflict-free, even though the walk is still in progress when the feeding is supposed to begin.
+
+This is a reasonable tradeoff for a pet scheduling app at this scale because:
+1. **Simplicity** — comparing two `"HH:MM"` strings is O(1) per task pair. Overlap detection would require converting every time to minutes and checking whether `[start, start + duration]` intervals intersect, which adds complexity without much benefit for a small daily task list.
+2. **Owner flexibility** — pet care tasks rarely need to be back-to-back. A 10-minute buffer between a walk and a feeding is realistic; the owner naturally knows the walk must finish before feeding starts.
+3. **Good enough for the problem** — the scheduler's primary job is to fit tasks within a daily time budget, not to produce a minute-by-minute timeline. Exact-time conflict detection catches the most obvious mistake (scheduling two things at literally the same moment) without over-engineering the solution.
 
 ---
 
