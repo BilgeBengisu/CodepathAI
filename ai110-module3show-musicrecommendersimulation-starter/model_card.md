@@ -14,7 +14,6 @@ The Music Matcher suggests songs based on what the user likes. It uses a small l
 
 It assumes users know what they like and can pick simple options. It also assumes there are enough songs to find a good match.
 
-This is for classroom learning, not for real music fans. It helps show how recommenders work and how changing the rules changes the results.
 
 ---
 
