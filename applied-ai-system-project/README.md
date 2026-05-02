@@ -4,6 +4,12 @@
 
 ---
 
+## Demo
+
+[![PawPal+ Demo Video](https://cdn.loom.com/sessions/thumbnails/c3bf7cc39fb44542ad22e5232b6651d3/thumbnail.gif)](https://www.loom.com/share/c3bf7cc39fb44542ad22e5232b6651d3)
+
+---
+
 ## Original Project
 
 **Original project:** PawPal+ (Module 2 — Smart Pet Task Scheduler)
