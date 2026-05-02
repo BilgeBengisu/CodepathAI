@@ -1,0 +1,301 @@
+{
+  "nutrition_facts": [
+    {
+      "id": "toy_breed_basics",
+      "tags": ["toy"],
+      "category": "breed_size",
+      "title": "Toy Breed Nutrition",
+      "facts": [
+        "Toy breeds have fast metabolisms and need calorie-dense food relative to body size",
+        "Small stomachs mean 3-4 small meals per day prevent hypoglycemia",
+        "Toy breeds are prone to dental disease — kibble size and dental chews matter",
+        "High-quality protein is critical to maintain lean muscle mass in tiny frames"
+      ],
+      "good_ingredients": ["chicken", "turkey", "salmon", "brown rice", "sweet potato", "blueberries", "pumpkin"],
+      "nutrients_to_prioritize": ["protein", "calcium", "phosphorus", "vitamin_D"]
+    },
+    {
+      "id": "small_breed_basics",
+      "tags": ["small"],
+      "category": "breed_size",
+      "title": "Small Breed Nutrition",
+      "facts": [
+        "Small breeds need higher calorie density per pound than large breeds",
+        "Smaller kibble pieces improve chewing and digestion",
+        "Small breeds often live longer — antioxidant-rich foods support longevity",
+        "Omega-3 fatty acids support coat health, which is often a concern in small breeds"
+      ],
+      "good_ingredients": ["chicken", "salmon", "sweet potato", "peas", "cranberries", "flaxseed", "blueberries"],
+      "nutrients_to_prioritize": ["protein", "omega_3", "antioxidants", "calcium"]
+    },
+    {
+      "id": "medium_breed_basics",
+      "tags": ["medium"],
+      "category": "breed_size",
+      "title": "Medium Breed Nutrition",
+      "facts": [
+        "Medium breeds are the most adaptable — a balanced all-life-stages formula often works well",
+        "Active medium breeds (Border Collies, Australian Shepherds) need higher protein ratios",
+        "Maintaining a healthy weight is key — medium breeds can gain weight easily if overfed",
+        "Omega-3 and omega-6 balance supports coat and brain function"
+      ],
+      "good_ingredients": ["beef", "chicken", "brown rice", "oats", "carrots", "spinach", "salmon oil"],
+      "nutrients_to_prioritize": ["protein", "balanced_fats", "fiber", "omega_3", "omega_6"]
+    },
+    {
+      "id": "large_breed_basics",
+      "tags": ["large", "giant"],
+      "category": "breed_size",
+      "title": "Large & Giant Breed Nutrition",
+      "facts": [
+        "Large breeds need controlled calcium-to-phosphorus ratios to prevent rapid bone growth that stresses joints",
+        "Glucosamine and chondroitin support joint health which is critical for large and giant dogs",
+        "Large breeds are prone to bloat (GDV) — feed 2-3 smaller meals instead of one large meal",
+        "DHA and EPA omega-3 fatty acids reduce joint inflammation in large breeds",
+        "Giant breeds reach skeletal maturity later — avoid over-supplementing calcium in puppies"
+      ],
+      "good_ingredients": ["salmon", "sweet potato", "brown rice", "pumpkin", "green lipped mussel", "blueberries", "chicken"],
+      "nutrients_to_prioritize": ["glucosamine", "chondroitin", "EPA", "DHA", "controlled_calcium", "phosphorus"]
+    },
+    {
+      "id": "puppy_nutrition",
+      "tags": ["puppy"],
+      "category": "age",
+      "title": "Puppy Nutrition (Under 1 Year)",
+      "facts": [
+        "Puppies need twice the calories per pound compared to adult dogs to fuel rapid growth",
+        "DHA is essential for brain and eye development in puppies",
+        "Puppies need more protein (22-32% DM) than adults for muscle and tissue development",
+        "Frequent meals (3-4x daily) prevent hypoglycemia and support sustained energy",
+        "Avoid adult formulas — calcium levels need to be carefully calibrated for growth plates"
+      ],
+      "good_ingredients": ["chicken", "turkey", "egg", "salmon", "sweet potato", "DHA-rich fish oil", "peas"],
+      "nutrients_to_prioritize": ["DHA", "protein", "calcium", "phosphorus", "vitamin_D", "zinc"]
+    },
+    {
+      "id": "junior_nutrition",
+      "tags": ["junior"],
+      "category": "age",
+      "title": "Junior Dog Nutrition (1-2 Years)",
+      "facts": [
+        "Junior dogs are transitioning from puppy to adult — protein needs remain high",
+        "Energy levels peak at this stage — active play burns many calories",
+        "This is the ideal time to establish healthy weight baselines",
+        "B vitamins support the nervous system during continued neurological maturation"
+      ],
+      "good_ingredients": ["chicken", "beef", "brown rice", "sweet potato", "carrots", "pumpkin", "flaxseed"],
+      "nutrients_to_prioritize": ["protein", "B_vitamins", "fiber", "iron", "zinc"]
+    },
+    {
+      "id": "adult_nutrition",
+      "tags": ["adult"],
+      "category": "age",
+      "title": "Adult Dog Nutrition (2-7 Years)",
+      "facts": [
+        "Adult dogs need balanced macros: 18-25% protein, 10-15% fat, rest from carbohydrates and fiber",
+        "Antioxidants (vitamin E, vitamin C) help protect cells from oxidative stress",
+        "Prebiotics and probiotics maintain gut microbiome diversity and immune function",
+        "Maintaining lean body mass requires adequate protein even in less-active adults"
+      ],
+      "good_ingredients": ["chicken", "salmon", "brown rice", "oats", "pumpkin", "blueberries", "yogurt", "carrots"],
+      "nutrients_to_prioritize": ["protein", "antioxidants", "probiotics", "fiber", "omega_3"]
+    },
+    {
+      "id": "senior_nutrition",
+      "tags": ["senior"],
+      "category": "age",
+      "title": "Senior Dog Nutrition (7+ Years)",
+      "facts": [
+        "Senior dogs have reduced metabolism — calorie intake should decrease by 20-30%",
+        "Higher protein (not lower) preserves muscle mass that naturally declines with age",
+        "Antioxidants (CoQ10, vitamin E) combat oxidative stress linked to aging",
+        "Joint supplements (glucosamine, chondroitin) become essential as cartilage wears",
+        "Phosphorus restriction may be needed if kidney function declines",
+        "Digestibility matters more — easily digestible proteins like eggs and white fish are ideal"
+      ],
+      "good_ingredients": ["egg", "white fish", "sweet potato", "pumpkin", "blueberries", "green lipped mussel", "kale"],
+      "nutrients_to_prioritize": ["digestible_protein", "glucosamine", "chondroitin", "antioxidants", "omega_3", "phosphorus_control"]
+    },
+    {
+      "id": "low_activity",
+      "tags": ["low"],
+      "category": "activity",
+      "title": "Low Activity Dogs",
+      "facts": [
+        "Low-activity dogs need roughly 1.2x their resting energy requirement (RER)",
+        "Excess calories quickly lead to obesity — high fiber foods promote satiety without excess calories",
+        "Lean proteins prevent muscle loss while keeping fat content low",
+        "L-carnitine helps convert stored fat to energy, supporting healthy weight"
+      ],
+      "good_ingredients": ["turkey", "sweet potato", "pumpkin", "green beans", "carrots", "oats", "broccoli"],
+      "nutrients_to_prioritize": ["lean_protein", "fiber", "L_carnitine", "low_fat"]
+    },
+    {
+      "id": "moderate_activity",
+      "tags": ["moderate"],
+      "category": "activity",
+      "title": "Moderately Active Dogs",
+      "facts": [
+        "Moderately active dogs need approximately 1.6x their RER",
+        "A balance of protein and complex carbohydrates sustains steady energy throughout the day",
+        "Post-walk meals (vs pre-walk) reduce bloat risk, especially in large breeds",
+        "B vitamins support energy metabolism during regular exercise"
+      ],
+      "good_ingredients": ["chicken", "brown rice", "sweet potato", "oats", "salmon", "peas", "spinach"],
+      "nutrients_to_prioritize": ["protein", "complex_carbs", "B_vitamins", "omega_3"]
+    },
+    {
+      "id": "high_activity",
+      "tags": ["high"],
+      "category": "activity",
+      "title": "Active Dogs",
+      "facts": [
+        "Active dogs need 2x their RER — energy demands double with vigorous daily exercise",
+        "High protein (28-30% DM) repairs micro muscle tears from exercise",
+        "Fat is a more calorie-dense energy source than carbs — healthy fats are essential",
+        "Electrolyte balance (sodium, potassium, magnesium) supports muscle function",
+        "Recovery meals rich in protein and antioxidants reduce post-exercise inflammation"
+      ],
+      "good_ingredients": ["salmon", "chicken", "beef", "egg", "sweet potato", "coconut oil", "blueberries", "spinach"],
+      "nutrients_to_prioritize": ["high_protein", "healthy_fat", "electrolytes", "antioxidants", "omega_3"]
+    },
+    {
+      "id": "very_high_activity",
+      "tags": ["very_high"],
+      "category": "activity",
+      "title": "Athletic & Working Dogs",
+      "facts": [
+        "Working and sporting dogs can need 2.5-5x RER depending on workload",
+        "Fat should provide 50-65% of calories for endurance work — fat oxidation is efficient",
+        "During intense periods, increase meal frequency to 3x daily",
+        "Adequate hydration is critical — working dogs lose significant water through panting",
+        "Recovery nutrition: protein within 30-60 minutes of activity supports muscle repair"
+      ],
+      "good_ingredients": ["fatty fish", "beef", "egg", "chicken", "coconut oil", "sweet potato", "kefir"],
+      "nutrients_to_prioritize": ["high_fat", "high_protein", "electrolytes", "hydration", "omega_3"]
+    },
+    {
+      "id": "weight_management",
+      "tags": ["weight_management"],
+      "category": "dietary_concern",
+      "title": "Weight Management",
+      "facts": [
+        "Overweight dogs have 2x the risk of diabetes, joint disease, and heart problems",
+        "Target 1-2% body weight loss per week — crash dieting causes muscle loss",
+        "High-fiber foods (pumpkin, green beans, carrots) increase satiety with fewer calories",
+        "Measure meals by weight, not volume — cup size varies significantly between kibbles",
+        "L-carnitine supplementation helps mobilize stored fat for energy"
+      ],
+      "good_ingredients": ["turkey breast", "pumpkin", "green beans", "carrots", "broccoli", "cucumber", "oats"],
+      "nutrients_to_prioritize": ["fiber", "lean_protein", "L_carnitine", "low_fat", "low_calorie_density"]
+    },
+    {
+      "id": "joint_health",
+      "tags": ["joint_health"],
+      "category": "dietary_concern",
+      "title": "Joint Health Support",
+      "facts": [
+        "Glucosamine (500-1000mg/day for medium dogs) stimulates cartilage repair",
+        "Chondroitin sulfate prevents cartilage breakdown and retains water in joints",
+        "Green-lipped mussel is one of the richest natural sources of ETA omega-3 for joint inflammation",
+        "Boswellia serrata extract reduces joint inflammation without NSAID side effects",
+        "Excess weight dramatically accelerates joint wear — every extra pound = 4 lbs of joint stress",
+        "Vitamin C supports collagen synthesis — critical for cartilage structure"
+      ],
+      "good_ingredients": ["green lipped mussel", "salmon", "sardines", "turmeric", "sweet potato", "blueberries", "egg"],
+      "nutrients_to_prioritize": ["glucosamine", "chondroitin", "EPA", "DHA", "ETA", "vitamin_C", "boswellia"]
+    },
+    {
+      "id": "sensitive_stomach",
+      "tags": ["sensitive_stomach", "allergies", "food_allergies"],
+      "category": "dietary_concern",
+      "title": "Sensitive Stomach & Food Allergies",
+      "facts": [
+        "The most common canine food allergens are beef, dairy, wheat, chicken, and soy",
+        "Novel proteins (venison, rabbit, duck, kangaroo) reduce allergic reactions when switching",
+        "Hydrolyzed protein diets break proteins into fragments too small to trigger immune response",
+        "Probiotics (Lactobacillus, Bifidobacterium) restore gut flora disrupted by food intolerances",
+        "Pumpkin and sweet potato are hypoallergenic carb sources that soothe inflamed guts",
+        "Elimination diets need 8-12 weeks before results are assessable"
+      ],
+      "good_ingredients": ["venison", "duck", "rabbit", "sweet potato", "pumpkin", "peas", "oats", "kefir"],
+      "nutrients_to_prioritize": ["novel_protein", "probiotics", "prebiotics", "digestive_enzymes", "omega_3"]
+    },
+    {
+      "id": "coat_skin_health",
+      "tags": ["coat_skin", "coat_health", "skin_health"],
+      "category": "dietary_concern",
+      "title": "Coat & Skin Health",
+      "facts": [
+        "Omega-3 (EPA/DHA) and omega-6 (linoleic acid) balance is the #1 factor in coat quality",
+        "Zinc deficiency causes dull coat and flaky skin — often seen in northern breeds",
+        "Biotin supports keratin production for strong, shiny fur",
+        "Vitamin E acts as an antioxidant protecting skin cell membranes from damage",
+        "Salmon oil (0.5-1 tsp per 10 lbs) significantly improves coat shine within 4-6 weeks"
+      ],
+      "good_ingredients": ["salmon", "sardines", "flaxseed", "sunflower seeds", "egg yolk", "sweet potato", "coconut oil"],
+      "nutrients_to_prioritize": ["omega_3", "omega_6", "biotin", "zinc", "vitamin_E", "linoleic_acid"]
+    },
+    {
+      "id": "dental_health",
+      "tags": ["dental_health"],
+      "category": "dietary_concern",
+      "title": "Dental Health",
+      "facts": [
+        "80% of dogs over 3 years have some degree of periodontal disease",
+        "Crunchy kibble creates mild mechanical abrasion that slows tartar buildup",
+        "Specially designed dental chews (VOHC-approved) reduce plaque by 20-70%",
+        "Raw meaty bones (appropriate size, supervised) naturally clean teeth",
+        "Parsley and fresh mint naturally freshen breath by neutralizing sulfur compounds",
+        "Avoid sugar-containing treats — bacteria ferment sugars to acids that erode enamel"
+      ],
+      "good_ingredients": ["chicken necks", "raw carrot", "celery", "parsley", "apple slices", "dental chews"],
+      "nutrients_to_prioritize": ["calcium", "phosphorus", "vitamin_D", "no_added_sugars", "coenzyme_Q10"]
+    },
+    {
+      "id": "heart_health",
+      "tags": ["heart_health"],
+      "category": "dietary_concern",
+      "title": "Heart Health Support",
+      "facts": [
+        "Taurine deficiency has been linked to dilated cardiomyopathy (DCM) — ensure adequate intake",
+        "L-carnitine transports fatty acids into cardiac muscle cells for energy",
+        "Sodium restriction may be needed in dogs with diagnosed heart disease",
+        "Omega-3 fatty acids reduce cardiac inflammation and improve heart muscle function",
+        "Coenzyme Q10 supports mitochondrial energy production in heart cells",
+        "Grain-free diets with legumes as main protein have been investigated for DCM risk"
+      ],
+      "good_ingredients": ["chicken", "turkey", "lamb", "sweet potato", "oats", "salmon", "egg", "broccoli"],
+      "nutrients_to_prioritize": ["taurine", "L_carnitine", "omega_3", "CoQ10", "limited_sodium", "avoid_legume_heavy_formulas"]
+    },
+    {
+      "id": "protein_quality",
+      "tags": ["puppy", "adult", "senior", "high", "very_high"],
+      "category": "general",
+      "title": "Protein Quality Matters",
+      "facts": [
+        "Named animal proteins (chicken, salmon, beef) are more digestible than meat meals or by-products",
+        "Eggs have a biological value (BV) of 100 — the gold standard for protein quality",
+        "Amino acid profile matters: taurine, L-carnitine, methionine, and lysine are key canine essentials",
+        "The first ingredient listed should be a whole protein source, not a grain or legume"
+      ],
+      "good_ingredients": ["egg", "chicken breast", "salmon fillet", "turkey", "lamb", "sardines"],
+      "nutrients_to_prioritize": ["BV_protein", "taurine", "L_carnitine", "methionine", "lysine"]
+    },
+    {
+      "id": "hydration_digestive",
+      "tags": ["senior", "kidney_health", "sensitive_stomach"],
+      "category": "general",
+      "title": "Hydration & Digestive Health",
+      "facts": [
+        "Dogs need approximately 1 oz of water per pound of body weight daily",
+        "Wet food (70-80% moisture) significantly boosts total water intake",
+        "Pumpkin is a digestive powerhouse — soluble fiber relieves both constipation and diarrhea",
+        "Bone broth (low sodium) encourages picky eaters and adds collagen and minerals",
+        "Fermented foods (plain kefir, plain goat yogurt) introduce beneficial bacteria"
+      ],
+      "good_ingredients": ["pumpkin", "bone broth", "kefir", "goat yogurt", "watermelon", "cucumber", "zucchini"],
+      "nutrients_to_prioritize": ["water", "soluble_fiber", "probiotics", "electrolytes", "collagen"]
+    }
+  ]
+}
