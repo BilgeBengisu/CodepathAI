@@ -1,9 +1,17 @@
 import json
+import logging
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from groq import Groq
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
+    datefmt="%H:%M:%S",
+)
+_log = logging.getLogger("pawpal.nutrition")
 
 _BREED_SIZE_MAP = {
     "toy": ["chihuahua", "yorkie", "yorkshire terrier", "pomeranian", "maltese", "shih tzu",
@@ -90,9 +98,30 @@ class NutritionRAG:
             key=lambda f: len(profile_tags & set(f.get("tags", []))),
             reverse=True,
         )
-        # always include entries with at least one match; pad with general entries if needed
         matched = [f for f in scored if len(profile_tags & set(f.get("tags", []))) > 0]
-        return matched[:top_k] if matched else scored[:top_k]
+        results = matched[:top_k] if matched else scored[:top_k]
+
+        confidence = self.retrieval_confidence(profile, results)
+        _log.info(
+            "RAG retrieve | breed=%s size=%s age=%s activity=%s concerns=%s "
+            "| top_k=%d matched=%d confidence=%.2f | facts=%s",
+            profile.breed, profile.size_category, profile.age_group,
+            profile.activity_level, profile.dietary_concerns,
+            top_k, len(matched), confidence,
+            [f["id"] for f in results],
+        )
+        return results
+
+    def retrieval_confidence(self, profile: DogProfile, facts: list[dict]) -> float:
+        """Returns 0.0-1.0: fraction of profile tags covered by the retrieved facts."""
+        concern_tags = {c.lower().replace(" ", "_") for c in profile.dietary_concerns}
+        profile_tags = {profile.size_category, profile.age_group, profile.activity_level} | concern_tags
+        if not profile_tags:
+            return 0.0
+        covered = set()
+        for f in facts:
+            covered |= profile_tags & set(f.get("tags", []))
+        return round(len(covered) / len(profile_tags), 2)
 
     def format_context(self, facts: list[dict]) -> str:
         sections = ["NUTRITION KNOWLEDGE:"]
@@ -117,6 +146,13 @@ class MealAdvisor:
 
     def advise(self, profile: DogProfile) -> str:
         relevant_facts = self.rag.retrieve(profile)
+        confidence = self.rag.retrieval_confidence(profile, relevant_facts)
+        _log.info(
+            "advise | breed=%s age=%.1f weight=%.1flbs activity=%s "
+            "calories=%d confidence=%.2f",
+            profile.breed, profile.age_years, profile.weight_lbs,
+            profile.activity_level, profile.daily_calories_estimate, confidence,
+        )
         context = self.rag.format_context(relevant_facts)
 
         concerns_str = (
@@ -147,12 +183,18 @@ State the daily feeding amount in cups (dry) or grams, number of meals per day, 
 Choose 3-4 key ingredients from your recommendation. For each, write 1-2 sentences explaining WHY it benefits THIS specific dog — reference their breed size, age, activity level, or dietary concern.
 """
 
-        response = self._client.chat.completions.create(
-            model=self._MODEL,
-            messages=[
-                {"role": "system", "content": self._SYSTEM},
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens=1024,
-        )
-        return response.choices[0].message.content
+        try:
+            response = self._client.chat.completions.create(
+                model=self._MODEL,
+                messages=[
+                    {"role": "system", "content": self._SYSTEM},
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=1024,
+            )
+            result = response.choices[0].message.content
+            _log.info("LLM call succeeded | model=%s tokens_in_prompt=%d", self._MODEL, len(prompt))
+            return result
+        except Exception as exc:
+            _log.error("LLM call failed | model=%s error=%s", self._MODEL, exc, exc_info=True)
+            raise

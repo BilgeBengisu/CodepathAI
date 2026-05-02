@@ -52,6 +52,8 @@ Millions of pet owners struggle to stay consistent with care routines and have n
                                    Groq API (LLaMA 3.3-70B)
 ```
 
+![PawPal+ System Diagram](assets/pawpal_system_diagram.png)
+
 **Flow — Scheduler tab:**
 1. User enters owner name, pet name/species, and available minutes.
 2. User adds tasks (description, duration, start time, priority, frequency).
@@ -233,38 +235,49 @@ Groq's inference API is free-tier accessible, extremely fast (sub-second for mos
 
 ## Testing Summary
 
-**What worked well:**
+**Result: 40/40 tests pass** (`python3 -m pytest tests/ -v`)
 
-- All three core scheduler behaviors are covered by 30+ unit tests: chronological sorting, recurrence generation on completion, and conflict detection.
-- Edge cases pass cleanly: midnight (00:00), end-of-day (23:59), multiple pets with cross-pet conflicts, single-pet plans, and empty plans.
-- The RAG retrieval is deterministic and verified manually against known profiles — a Golden Retriever with joint concerns always retrieves the large-breed and joint-health entries.
+Three reliability mechanisms were implemented:
+
+### 1. Automated unit tests (`tests/`)
+
+| Test file | Coverage | Passing |
+|---|---|---|
+| `test_pawpal.py` | Scheduler: sort, recurrence, conflict detection, edge cases | 18/18 |
+| `test_nutrition_advisor.py` | DogProfile computed props, RAG retrieval correctness, confidence scoring | 22/22 |
+
+Key cases covered: breed-name size detection, weight-based fallback for unknown breeds, puppy/senior calorie scaling, correct fact retrieval for large breeds + joint concerns, confidence score bounds, empty-input edge cases.
+
+### 2. Confidence scoring (`NutritionRAG.retrieval_confidence`)
+
+Every call to `retrieve()` now computes a 0.0–1.0 confidence score: the fraction of the dog's profile tags (size, age group, activity level, dietary concerns) that are actually covered by the returned facts. Typical scores for well-matched profiles (e.g., large senior with joint concern) are **0.75–1.0**. An unknown breed with no concerns scores **0.33** (only the activity tag is matched), signalling that the AI recommendation has less grounding.
+
+### 3. Structured logging (`nutrition_advisor.py`)
+
+The logger (`pawpal.nutrition`) records:
+- RAG retrieval: which facts were returned, how many matched, and the confidence score
+- LLM call: model name and prompt size on success
+- Full traceback on API failure (so CI logs show exactly what went wrong)
+
+**What worked well:**
+- All 40 tests pass in 0.17 s — fast enough to run on every save.
+- Confidence scoring caught a real edge case: an unknown mixed-breed dog with no dietary concerns retrieves generic facts and scores 0.33, which was not obvious before instrumentation.
+- Logging revealed that the retrieval always returns `top_k` results even when zero facts match (falls back to top-scored), a behaviour that would otherwise be invisible.
 
 **What didn't work as expected:**
-
-- The default task time of `00:00` in the original Module 2 starter caused all tasks to appear as conflicting in tests. This was caught by tests, but the fix required updating the Streamlit time-picker default rather than changing the logic. It taught me that the UI layer can introduce bugs the backend never anticipates.
-- The first version of `detect_conflicts()` was called inside `generate_plan()`, which caused it to run twice and produce doubled conflict messages in the UI. Separating the two calls and passing `plan` explicitly resolved this.
+- The default task time of `00:00` in the original Module 2 starter caused all tasks to appear as conflicting in tests. This was caught by tests, but the fix required updating the Streamlit time-picker default rather than changing the logic.
+- The first version of `detect_conflicts()` was called inside `generate_plan()`, which caused doubled conflict messages in the UI. Separating the calls resolved this.
 
 **What I learned:**
-
-- Testing individual functions early revealed integration issues between `Scheduler` methods well before the UI was built.
-- The boundary between "the logic is correct" and "the feature works" is wider than expected — manual UI testing caught things unit tests couldn't (e.g., button state causing a stale `scheduler` reference after "Mark All Complete").
-- A test that passes vacuously (all tasks default to `00:00` so they all conflict, but the test was checking for no-conflict) is worse than no test. Writing intentional test data with varied times was the real fix.
-
-**Test confidence: 4/5**
-
-Core scheduling logic is reliable and well-covered. Integration tests for the Streamlit session state and the Groq API calls are not yet included — these would require mock patching or a live API token in CI.
+- Writing the nutrition tests before adding confidence scoring revealed that the retrieval's "fallback to top-scored" path was never validated. The tests forced that path to be explicitly tested.
+- Confidence scoring is more useful than a binary pass/fail for RAG — it tells the user (and the developer) *how well* the knowledge base matched, not just *whether* it matched.
+- Integration tests for Streamlit session state and live Groq API calls are not yet included — these would require mock patching or a live API token in CI.
 
 ---
 
 ## Reflection
 
-**What this project taught me about AI and problem-solving:**
-
-Building PawPal+ made me see AI not as a black box that replaces thinking, but as a layer that requires deliberate design around it. The nutrition advisor only works well because of the RAG architecture — without the curated knowledge base, the same LLM would give generic, one-size-fits-all advice. Designing *what the AI should know before it speaks* turned out to be the most important engineering decision.
-
-I also learned that the deterministic and probabilistic parts of a system have very different failure modes. The scheduler either works or it doesn't — tests prove it. The AI advisor can produce plausible-sounding but subtly wrong output, and tests can't catch that. This made me appreciate prompt engineering as a genuine discipline: structuring the prompt into explicit sections (Meal Recommendation, Portion Guidance, Ingredient Spotlight) and instructing the model to "tie every recommendation back to this dog's profile" were small changes that dramatically improved the output's usefulness.
-
-Finally, designing system classes before writing a single line of code (Owner → Pet → Task → Scheduler) made the later AI integration straightforward. The `DogProfile` dataclass with computed properties (`size_category`, `age_group`, `daily_calories_estimate`) was a direct translation of that design discipline into the AI layer. Good software architecture and good AI product design reinforce each other.
+See [model_card.md](model_card.md) for the full project reflection and responsible AI discussion.
 
 ---
 
@@ -278,6 +291,7 @@ applied-ai-system-project/
 ├── dog_nutrition_facts.json  # Curated nutrition knowledge base (15 entries)
 ├── main.py                   # CLI demo — scheduling with filtering, sorting, conflicts
 ├── requirements.txt
+├── model_card.md             # Project reflection & responsible AI discussion
 └── reflection.md
 ```
 
